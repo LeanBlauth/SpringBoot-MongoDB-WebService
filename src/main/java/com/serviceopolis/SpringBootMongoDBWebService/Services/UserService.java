@@ -30,6 +30,11 @@ public class UserService {
 		return repo.insert(obj);
 	}
 	
+	public void delete(String Id) {
+		findById(Id); // Throw 404 if not found
+		repo.deleteById(Id);
+	} 
+	
 	// Declared here instead of in the UserDTO class because the service has access to the database.
 	// This way it is possible to perform maintenance through data access
 	public User fromDTO(UserDTO dtoObj) {
