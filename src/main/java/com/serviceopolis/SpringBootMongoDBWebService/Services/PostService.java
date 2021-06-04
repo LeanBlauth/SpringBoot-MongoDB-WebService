@@ -1,5 +1,6 @@
 package com.serviceopolis.SpringBootMongoDBWebService.Services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,8 @@ import com.serviceopolis.SpringBootMongoDBWebService.Services.Exception.ObjectNo
 @Service
 public class PostService {
 	
+	private static final int twentyfourhours = 24 * 60 * 60 * 1000;
+	
 	@Autowired
 	private PostRepository repo;
 	
@@ -24,6 +27,11 @@ public class PostService {
 	public List<Post> findByTitle(String text) {
 		//return repo.findByTitleContainingIgnoreCase(text);
 		return repo.searchTitle(text);
+	}
+	
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate) {
+		maxDate = new Date(maxDate.getTime() + twentyfourhours);
+		return repo.fullSearch(text, minDate, maxDate);
 	}
 	
 }
