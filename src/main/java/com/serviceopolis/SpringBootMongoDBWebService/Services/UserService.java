@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.serviceopolis.SpringBootMongoDBWebService.DTO.UserDTO;
 import com.serviceopolis.SpringBootMongoDBWebService.Domain.User;
 import com.serviceopolis.SpringBootMongoDBWebService.Repository.UserRepository;
 import com.serviceopolis.SpringBootMongoDBWebService.Services.Exception.ObjectNotFoundException;
@@ -23,6 +24,16 @@ public class UserService {
 	public User findById(String Id) {
 		Optional<User> obj = repo.findById(Id);		
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
+	}
+	
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+	
+	// Declared here instead of in the UserDTO class because the service has access to the database.
+	// This way it is possible to perform maintenance through data access
+	public User fromDTO(UserDTO dtoObj) {
+		return new User(dtoObj.getId(), dtoObj.getName(), dtoObj.getEmail());
 	}
 
 }
