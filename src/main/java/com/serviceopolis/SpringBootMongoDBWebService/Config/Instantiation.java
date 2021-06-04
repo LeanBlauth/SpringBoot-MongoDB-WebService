@@ -29,7 +29,6 @@ public class Instantiation  implements CommandLineRunner {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		
-		
 		userRepo.deleteAll();
 		postRepo.deleteAll();
 		
@@ -41,9 +40,12 @@ public class Instantiation  implements CommandLineRunner {
 		
 		Post post1 = new Post(null, sdf.parse("21/03/2018"), "It's so coooldd BAA !", "It's so cold my hooves are freezing", new AuthorDTO(rudolph));
 		Post post2 = new Post(null, sdf.parse("14/11/2035"), "where is my pizza", "It has been 2 hours already I'm hungry you know", new AuthorDTO(plumbus));
-		
-		
+				
 		postRepo.saveAll(Arrays.asList(post1, post2));
+		
+		rudolph.getPosts().addAll(Arrays.asList(post1));
+		plumbus.getPosts().addAll(Arrays.asList(post2));
+		userRepo.saveAll(Arrays.asList(rudolph, plumbus));
 	}
 
 }
