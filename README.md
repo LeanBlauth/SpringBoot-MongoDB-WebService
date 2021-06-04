@@ -6,6 +6,6 @@ Web Service project developed with the following characteristics:
 - MongoDB document-oriented database; MongoDB compass
 - Maven project manager
 
-### DomainModel
+### UML DomainModel
 
 ![](images/DomainModel.png)
