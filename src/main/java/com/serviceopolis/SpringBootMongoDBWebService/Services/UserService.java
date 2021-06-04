@@ -33,7 +33,19 @@ public class UserService {
 	public void delete(String Id) {
 		findById(Id); // Throw 404 if not found
 		repo.deleteById(Id);
-	} 
+	}
+	
+	public User update(User obj) {
+		User newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+		
+	}
+	
+	private void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+	}
 	
 	// Declared here instead of in the UserDTO class because the service has access to the database.
 	// This way it is possible to perform maintenance through data access
